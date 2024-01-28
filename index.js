@@ -149,10 +149,14 @@ async function run() {
 
      // find single id data for updating purpose
      app.get("/courses/:id", async (req, res) => {
+     try {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await  courseCollection.findOne(query);
       res.send(result);
+     } catch (error) {
+      console.log(error);
+     }
     });
     //------------------------  blog apis--------------------
     app.get('/blogs', async (req, res) => {
