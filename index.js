@@ -5,9 +5,15 @@ const app = express();
 require("dotenv").config();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000;
+const stripe = require("stripe")(process.env.PAYMENT_SECRET_KEY);
 
 // middleware
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 
@@ -32,6 +38,8 @@ async function run() {
     const courseCollection = client.db("Edtech").collection("courses")
     const reviewCollection = client.db("Edtech").collection("reviews")
     const userCollection = client.db("Edtech").collection('users');
+    const blogCollection = client.db("Edtech").collection('blogs');
+    const bookingCollection = client.db("Edtech").collection("bookings");
 
     // -----------------------JWT related API ----------------
     app.post('/jwt', async (req, res) => {
@@ -122,6 +130,12 @@ async function run() {
 
 
     // ---------------------------all courses apis ----------------
+    
+    // popular
+    app.get('/popular', async (req, res) => {
+      const result = await courseCollection.find({category:"popular"}).toArray()
+      res.send(result)
+    })
 
     //  get api  
     app.get('/courses', async (req, res) => {
@@ -133,6 +147,28 @@ async function run() {
       }
     })
 
+     // find single id data for updating purpose
+     app.get("/courses/:id", async (req, res) => {
+     try {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await  courseCollection.findOne(query);
+      res.send(result);
+     } catch (error) {
+      console.log(error);
+     }
+    });
+    //------------------------  blog apis--------------------
+    app.get('/blogs', async (req, res) => {
+      try {
+        const result = await blogCollection.find().toArray()
+        res.send(result)
+      } catch (error) {
+        console.log(error);
+      }
+    })
+
+
     //------------------------  review apis--------------------
     app.get("/reviews", async (req, res) => {
       try {
@@ -142,6 +178,36 @@ async function run() {
         console.log(error);
       }
     })
+
+      // stripe and payment things ---------------------------
+
+      app.post("/create-payment-intent", async (req, res) => {
+        const { price } = req.body;
+        const amount = parseInt(price * 100);
+        if (!price || amount < 1) return;
+        const { client_secret } = await stripe.paymentIntents.create({
+          amount: amount,
+          currency: "usd",
+          payment_method_types: ["card"],
+        });
+        res.send({ clientSecret: client_secret });
+      });
+  
+      // set item info in a booking collection
+      app.post("/bookings",  async (req, res) => {
+        const booking = req.body;
+        const result = await bookingCollection.insertOne(booking);
+        res.send(result);
+      });
+  
+      app.get("/bookings", async (req, res) => {
+        const stEmail = req.query.stEmail;
+        console.log(stEmail);
+        const result = await bookingCollection
+          .find({ stEmail: stEmail })
+          .toArray();
+        res.send(result);
+      });
 
 
 
