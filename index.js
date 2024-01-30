@@ -5,9 +5,15 @@ const app = express();
 require("dotenv").config();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000;
+const stripe = require("stripe")(process.env.PAYMENT_SECRET_KEY);
 
 // middleware
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 
@@ -32,6 +38,8 @@ async function run() {
     const courseCollection = client.db("Edtech").collection("courses")
     const reviewCollection = client.db("Edtech").collection("reviews")
     const userCollection = client.db("Edtech").collection('users');
+    const blogCollection = client.db("Edtech").collection('blogs');
+    const bookingCollection = client.db("Edtech").collection("bookings");
 
     // -----------------------JWT related API ----------------
     app.post('/jwt', async (req, res) => {
@@ -42,7 +50,8 @@ async function run() {
 
     // MiddleWares
     const verifyToken = (req, res, next) => {
-      console.log('Inside verify Token', req.headers.authorization);
+      try{
+        console.log('Inside verify Token', req.headers.authorization);
       if (!req.headers.authorization) {
         return res.status(401).send({ message: 'Unauthorized access' });
       }
@@ -54,25 +63,46 @@ async function run() {
         req.decoded = decoded;
         next();
       })
+      }catch(error){
+        console.log(error)
+      }
     };
 
     // use verifyAdmin after verifyToken
     const verifyAdmin = async (req, res, next) => {
-      const email = req.decoded.email;
-      const query = { email: email };
-      const user = await userCollection.findOne(query);
-      const isAdmin = user?.role === 'admin';
-      if (!isAdmin) {
-          return res.status(403).send({ message: 'forbidden Access' });
+      try {
+        const email = req.decoded.email;
+        const query = { email: email };
+        const user = await userCollection.findOne(query);
+    
+        // Check if user is not found
+        if (!user) {
+          return res.status(404).send({ message: 'User not found' });
+        }
+    
+        const isAdmin = user.role === 'admin';
+    
+        // Check if the user is not an admin
+        if (!isAdmin) {
+          return res.status(403).send({ message: 'Forbidden access' });
+        }
+    
+        next(); // Proceed to the next middleware or route handler
+      } catch (error) {
+        // Handle any errors that occurred during the execution of the middleware
+        console.error('Error in verifyAdmin middleware:', error);
+        res.status(500).send({ message: 'Internal Server Error' });
       }
-
-      next();
-  }
+    };
+    
+    // module.exports = verifyAdmin;
+    
 
     // ---------------------------User related Apis----------------
 
     app.get('/users', async (req, res) => {
 
+     try{
       let query = {};
       if (req.query?.email) {
         query = { email: req.query.email };
@@ -83,32 +113,45 @@ async function run() {
 
       const result = await userCollection.find(query).toArray();
       res.send(result);
+     }catch(error){
+      console.log(error);
+     }
     });
 
     app.get('/users/:id', async (req, res) => {
-      const id = req.params.id;
+      try{
+        const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await userCollection.findOne(query);
       res.send(result);
+      }catch(error){
+        console.log(error)
+      }
     });
 
     app.get('/users/admin/:email', async (req, res) => {
+     try{
       const email = req.params.email;
       if (!email === req?.decoded?.email) {
-          return res.status(403).send({ message: 'Forbidden Access' });
+        return res.status(403).send({ message: 'Forbidden Access' });
       }
 
       const query = { email: email };
       const user = await userCollection.findOne(query);
       let admin = false;
       if (user) {
-          admin = user?.role === 'admin';
+        admin = user?.role === 'admin';
       }
       res.send({ admin });
-  });
+     }
+     catch(error){
+      console.log(error)
+     }
+    });
 
     app.post('/users', async (req, res) => {
-      const user = req.body;
+      try{
+        const user = req.body;
       // checking user exist or not
       const query = { email: user.email };
       const existingUser = await userCollection.findOne(query);
@@ -118,10 +161,23 @@ async function run() {
 
       const result = await userCollection.insertOne(user);
       res.send(result);
+      }catch(error){
+        console.log(error)
+      }
     });
 
 
     // ---------------------------all courses apis ----------------
+
+    // popular
+    app.get('/popular', async (req, res) => {
+      try {
+        const result = await courseCollection.find({ category: "popular" }).toArray()
+        res.send(result)
+      } catch (error) {
+        console.log(error);
+      }
+    })
 
     //  get api  
     app.get('/courses', async (req, res) => {
@@ -133,6 +189,28 @@ async function run() {
       }
     })
 
+    // find single id data for updating purpose
+    app.get("/courses/:id", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) };
+        const result = await courseCollection.findOne(query);
+        res.send(result);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+    //------------------------  blog apis--------------------
+    app.get('/blogs', async (req, res) => {
+      try {
+        const result = await blogCollection.find().toArray()
+        res.send(result)
+      } catch (error) {
+        console.log(error);
+      }
+    })
+
+
     //------------------------  review apis--------------------
     app.get("/reviews", async (req, res) => {
       try {
@@ -142,6 +220,48 @@ async function run() {
         console.log(error);
       }
     })
+
+    // stripe and payment things ---------------------------
+
+    app.post("/create-payment-intent", async (req, res) => {
+      try {
+        const { price } = req.body;
+        const amount = parseInt(price * 100);
+        if (!price || amount < 1) return;
+        const { client_secret } = await stripe.paymentIntents.create({
+          amount: amount,
+          currency: "usd",
+          payment_method_types: ["card"],
+        });
+        res.send({ clientSecret: client_secret });
+      } catch (error) {
+        console.log(error);
+      }
+    });
+
+    // set item info in a booking collection
+    app.post("/bookings", async (req, res) => {
+      try {
+        const booking = req.body;
+        const result = await bookingCollection.insertOne(booking);
+        res.send(result);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+
+    app.get("/bookings", async (req, res) => {
+      try{
+        const stEmail = req.query.stEmail;
+      console.log(stEmail);
+      const result = await bookingCollection
+        .find({ stEmail: stEmail })
+        .toArray();
+      res.send(result);
+      }catch(error){
+        console.log(error);
+      }
+    });
 
 
 
