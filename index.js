@@ -20,7 +20,7 @@ app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.3hdabzk.mongodb.net/?retryWrites=true&w=majority`;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -34,7 +34,7 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
-    //   collections
+      // collections
     const courseCollection = client.db("Edtech").collection("courses")
     const reviewCollection = client.db("Edtech").collection("reviews")
     const userCollection = client.db("Edtech").collection('users');
@@ -123,7 +123,6 @@ async function run() {
       if (existingUser) {
         return res.send({ message: 'user already exist', insertedId: null });
       }
-
       const result = await userCollection.insertOne(user);
       res.send(result);
     });
@@ -220,10 +219,6 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
-
-
-
 
 
 app.get('/', (req, res) => {
