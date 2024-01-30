@@ -4,5 +4,4 @@ var router = express.Router()
 
 router.post('/jwt', createCookieToken);
 
-
 module.exports = router;
