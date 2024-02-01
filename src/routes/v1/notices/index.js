@@ -11,4 +11,5 @@ router.get('/notice-user', findNoticeUser)
 router.put('/notice-updated/:id', updateNotice);
 router.delete('/notice/:id',deleteNotice );
 
+
 module.exports = router;
