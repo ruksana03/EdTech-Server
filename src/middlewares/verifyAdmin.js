@@ -2,7 +2,7 @@ const User = require("../models/Users");
 
 const verifyAdmin = async (req, res, next) => {
   try {
-    const email = req?.decoded?.email  
+    const email = req.decoded.email;
     // Find the user with the specified email
     const user = await User.findOne({ email: email });
 
