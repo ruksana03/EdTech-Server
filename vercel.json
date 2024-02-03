@@ -8,9 +8,15 @@
   ],
   "routes": [
     {
+      "src": "/files/(.*)",
+      "dest": "/files/$1",
+      "methods": ["GET"]
+    },
+    {
       "src": "/(.*)",
       "dest": "src/app.js",
       "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
     }
   ]
 }
+
