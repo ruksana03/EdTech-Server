@@ -20,7 +20,7 @@ app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.3hdabzk.mongodb.net/?retryWrites=true&w=majority`;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -34,7 +34,7 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
-    //   collections
+      // collections
     const courseCollection = client.db("Edtech").collection("courses")
     const reviewCollection = client.db("Edtech").collection("reviews")
     const userCollection = client.db("Edtech").collection('users');
@@ -158,7 +158,6 @@ async function run() {
       if (existingUser) {
         return res.send({ message: 'user already exist', insertedId: null });
       }
-
       const result = await userCollection.insertOne(user);
       res.send(result);
       }catch(error){
@@ -168,6 +167,12 @@ async function run() {
 
 
     // ---------------------------all courses apis ----------------
+    
+    // popular
+    app.get('/popular', async (req, res) => {
+      const result = await courseCollection.find({category:"popular"}).toArray()
+      res.send(result)
+    })
 
     // popular
     app.get('/popular', async (req, res) => {
@@ -189,16 +194,16 @@ async function run() {
       }
     })
 
-    // find single id data for updating purpose
-    app.get("/courses/:id", async (req, res) => {
-      try {
-        const id = req.params.id;
-        const query = { _id: new ObjectId(id) };
-        const result = await courseCollection.findOne(query);
-        res.send(result);
-      } catch (error) {
-        console.log(error);
-      }
+     // find single id data for updating purpose
+     app.get("/courses/:id", async (req, res) => {
+     try {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await  courseCollection.findOne(query);
+      res.send(result);
+     } catch (error) {
+      console.log(error);
+     }
     });
     //------------------------  blog apis--------------------
     app.get('/blogs', async (req, res) => {
@@ -221,10 +226,9 @@ async function run() {
       }
     })
 
-    // stripe and payment things ---------------------------
+      // stripe and payment things ---------------------------
 
-    app.post("/create-payment-intent", async (req, res) => {
-      try {
+      app.post("/create-payment-intent", async (req, res) => {
         const { price } = req.body;
         const amount = parseInt(price * 100);
         if (!price || amount < 1) return;
@@ -234,34 +238,23 @@ async function run() {
           payment_method_types: ["card"],
         });
         res.send({ clientSecret: client_secret });
-      } catch (error) {
-        console.log(error);
-      }
-    });
-
-    // set item info in a booking collection
-    app.post("/bookings", async (req, res) => {
-      try {
+      });
+  
+      // set item info in a booking collection
+      app.post("/bookings",  async (req, res) => {
         const booking = req.body;
         const result = await bookingCollection.insertOne(booking);
         res.send(result);
-      } catch (error) {
-        console.log(error);
-      }
-    });
-
-    app.get("/bookings", async (req, res) => {
-      try{
+      });
+  
+      app.get("/bookings", async (req, res) => {
         const stEmail = req.query.stEmail;
-      console.log(stEmail);
-      const result = await bookingCollection
-        .find({ stEmail: stEmail })
-        .toArray();
-      res.send(result);
-      }catch(error){
-        console.log(error);
-      }
-    });
+        console.log(stEmail);
+        const result = await bookingCollection
+          .find({ stEmail: stEmail })
+          .toArray();
+        res.send(result);
+      });
 
 
 
@@ -274,10 +267,6 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
-
-
-
 
 
 app.get('/', (req, res) => {
