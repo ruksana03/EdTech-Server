@@ -15,10 +15,10 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["admin", "normalUser", "teacher"],
-    default: "normalUser",
+    enum: ["admin", "student", "teacher"],
+    default: "student",
   },
-});
+}, { versionKey: false });
 
 const User = model("User", UserSchema);
 
