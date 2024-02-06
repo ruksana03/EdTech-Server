@@ -54,7 +54,7 @@ const BlogSchema = new Schema({
     required: true,
   },
   comments: [CommentSchema],  
-});
+},{ versionKey: false });
 
 const Blog = model('Blog', BlogSchema);
 module.exports = Blog;
