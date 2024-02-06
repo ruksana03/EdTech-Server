@@ -33,8 +33,20 @@ const CourseSchema = new Schema({
   status: {
     type: String,
     required: true
-  }
+  },
+  instructors: [
+    {
+      name: String,
+      email: String
+    }
+  ],
+  video: {
+    title: String,
+    link: String
+  },
+  requirements: String
 }, { versionKey: false });
 
+// model creation 
 const Course = mongoose.model('Course', CourseSchema);
 module.exports = Course;
