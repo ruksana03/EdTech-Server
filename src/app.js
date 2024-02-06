@@ -27,7 +27,7 @@ app.use(paymentRoutes)
 app.use(userRoutes)
 app.use(userAdminRoutes)
 app.use(noticeRoutes)
-app.use("/files", express.static("files"))
+app.use("/files", express.static("files"));
 
 //----------Multer-------------
 const multer  = require('multer');
