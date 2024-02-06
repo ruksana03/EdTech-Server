@@ -136,15 +136,15 @@
 // //       res.send(result)
 // //     })
 
-// //     //  get api
-// //     app.get('/courses', async (req, res) => {
-// //       try {
-// //         const result = await courseCollection.find().toArray()
-// //         res.send(result)
-// //       } catch (error) {
-// //         console.log(error);
-// //       }
-// //     })
+    //  get api
+    app.get('/courses', async (req, res) => {
+      try {
+        const result = await courseCollection.find().toArray()
+        res.send(result)
+      } catch (error) {
+        console.log(error);
+      }
+    })
 
 // //      // find single id data for updating purpose
 // //      app.get("/courses/:id", async (req, res) => {

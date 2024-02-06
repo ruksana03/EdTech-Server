@@ -8,6 +8,7 @@ const {
   findApprovedCourses,
   deleteCourse,
 } = require("../../../api/v1/courses/controllers");
+const Course = require("../../../models/Courses");
 var router = express.Router();
 
 router.get("/popular", findPopularCourses);
@@ -17,5 +18,6 @@ router.get("/courses/:id", findOneCourse);
 router.post("/courses", createCourse);
 router.put("/courses/approve/:id", updateCourseStatus);
 router.delete('/courses/delete/:id', deleteCourse);
+ 
 
 module.exports = router;

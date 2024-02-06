@@ -1,4 +1,4 @@
-const Recorded = require("../../../../models/recordedClass");
+const Recorded = require("../../../../models/RecordedClass");
 
 const findAllVideos = async (req, res) => {
     try {
