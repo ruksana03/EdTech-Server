@@ -1,9 +1,7 @@
-var express = require("express");
-const { findAllCourse, findPopularCourses, findOneCourse } = require("../../../api/v1/courses/controllers");
-var router = express.Router()
- 
-router.get('/popular', findPopularCourses)
-router.get('/courses', findAllCourse)
-router.get("/courses/:id",findOneCourse);
+const findAllCourse = require('./findAllCourse')
+const findPopularCourses = require('./findPopularCourses')
+const findOneCourse = require('./findOneCourse')
 
-module.exports = router;
+module.exports = {
+    findAllCourse,findPopularCourses,findOneCourse
+}

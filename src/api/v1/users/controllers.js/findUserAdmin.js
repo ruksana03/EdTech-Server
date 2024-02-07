@@ -2,7 +2,7 @@ const User = require("../../../../models/Users");
 
 const findUserAdmin = async (req, res, next) => {
   try {
-    const { email } = req.params;
+    const { email } = req.params 
 
     // Check if the requested email matches the decoded email in the token
     if (email !== req?.decoded?.email) {
