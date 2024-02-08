@@ -22,6 +22,10 @@ const CourseSchema = new Schema({
     type: Number,
     required: true
   },
+  duration: {
+    type: Number,
+    required: true
+  },
   name: {
     type: String,
     required: true
