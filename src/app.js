@@ -16,6 +16,8 @@ const userRoutes = require('./routes/v1/users/index')
 // const userAdminRoutes = require('./routes/v1/userAdmin/index')
 const noticeRoutes = require('./routes/v1/notices/index')
 const recordedRoutes = require('./routes/v1/recordedVideo/index')
+const notesRoutes = require('./routes/v1/note/index')
+const cartRoutes = require('./routes/v1/carts/index')
 
 applyMiddleware(app)
 
@@ -29,6 +31,8 @@ app.use(userRoutes)
 // app.use(userAdminRoutes)
 app.use(noticeRoutes)
 app.use(recordedRoutes)
+app.use(notesRoutes)
+app.use(cartRoutes)
 app.use("/files", express.static("files"))
 
 //----------Multer-------------

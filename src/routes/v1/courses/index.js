@@ -8,7 +8,6 @@ const {
   findApprovedCourses,
   deleteCourse,
 } = require("../../../api/v1/courses/controllers");
-const Course = require("../../../models/Courses");
 var router = express.Router();
 
 router.get("/popular", findPopularCourses);
