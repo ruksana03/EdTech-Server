@@ -454,3 +454,7 @@
 // })
 // })
 // })
+app.get('/addtask', async (req, res) => {
+    const result = await taskcollection.find().toArray();
+    res.send(result);
+  });
