@@ -2,8 +2,9 @@ const Notice = require("../../../../models/Notices");
 
 const findAllNotices =  async (req, res) => {
     try {
-      const result = await Notice.find() 
-      res.send(result)
+      // const filter = dateTime.sort({ createdAt: -1 })
+      const result = await Notice.find() ;
+      res.send(result);
     } catch (error) {
       console.log(error);
     }

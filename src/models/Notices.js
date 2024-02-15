@@ -22,7 +22,15 @@ const NoticeSchema = new Schema({
         type: String,
         required:true
     },
-})
+    hostEmail: {
+        type: String,
+        required:true
+    },
+    hostName: {
+        type: String,
+        required:true
+    },
+}, { versionKey: false })
 
 const Notice = model('Notice', NoticeSchema)
 module.exports = Notice;

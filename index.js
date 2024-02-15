@@ -127,6 +127,17 @@
 // //       res.send(result);
 // //     });
 
+// app.delete('/user/:id', async (req, res) => {
+//   try {
+//       const id = req.params.id;
+//       const query = { _id: new ObjectId(id) }
+//       const result = await userCollection.deleteOne(query);
+//       res.send(result);
+//   } catch (error) {
+//       console.log("'error on app.delete('/user/:id'", error)
+//   }
+// })
+
 
 // //     // ---------------------------all courses apis ----------------
     
@@ -136,16 +147,28 @@
 // //       res.send(result)
 // //     })
 
-// //     //  get api
-// //     app.get('/courses', async (req, res) => {
-// //       try {
-// //         const result = await courseCollection.find().toArray()
-// //         res.send(result)
-// //       } catch (error) {
-// //         console.log(error);
-// //       }
-// //     })
+    //  get api
+    // app.get('/courses', async (req, res) => {
+    //   try {
+    //     const result = await courseCollection.find().toArray()
+    //     res.send(result)
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // })
 
+     // find single id data for updating purpose
+    //  app.get("/courses/:id", async (req, res) => {
+    //  try {
+    //   const id = req.params.id;
+    //   const query = { _id: new ObjectId(id) };
+    //   const result = await  courseCollection.findOne(query);
+    //   res.send(result);
+    //  } catch (error) {
+    //   console.log(error);
+    //  }
+    // });
+    //------------------------  blog apis--------------------
 // //      // find single id data for updating purpose
 // //      app.get("/courses/:id", async (req, res) => {
 // //      try {
@@ -158,6 +181,14 @@
 // //      }
 // //     });
 // //     //------------------------  blog apis--------------------
+    // app.get('/blogs', async (req, res) => {
+    //   try {
+    //     const result = await blogCollection.find().toArray()
+    //     res.send(result)
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // })
 // //     app.get('/blogs', async (req, res) => {
 // //       try {
 // //         const result = await blogCollection.find().toArray()
@@ -209,6 +240,186 @@
 // //       });
 
 
+// //     //------------------------  review apis--------------------
+// //     app.get("/reviews", async (req, res) => {
+// //       try {
+// //         const result = await reviewCollection.find().toArray()
+// //         res.send(result)
+// //       } catch (error) {
+// //         console.log(error);
+// //       }
+// //     })
+
+// //       // stripe and payment things ---------------------------
+
+// //       app.post("/create-payment-intent", async (req, res) => {
+// //         const { price } = req.body;
+// //         const amount = parseInt(price * 100);
+// //         if (!price || amount < 1) return;
+// //         const { client_secret } = await stripe.paymentIntents.create({
+// //           amount: amount,
+// //           currency: "usd",
+// //           payment_method_types: ["card"],
+// //         });
+// //         res.send({ clientSecret: client_secret });
+// //       });
+  
+// //       // set item info in a booking collection
+// //       app.post("/bookings",  async (req, res) => {
+// //         const booking = req.body;
+// //         const result = await bookingCollection.insertOne(booking);
+// //         res.send(result);
+// //       });
+  
+// //       app.get("/bookings", async (req, res) => {
+// //         const stEmail = req.query.stEmail;
+// //         console.log(stEmail);
+// //         const result = await bookingCollection
+// //           .find({ stEmail: stEmail })
+// //           .toArray();
+// //         res.send(result);
+// //       });
+
+  //   app.post('/blogs', async (req, res) => {
+  //     try {
+  //         const blog = req.body;
+  //         const result = await blogCollection.insertOne(blog);
+  //         res.send(result);
+  //     } catch (error) {
+  //         console.log("error on app.post('/products',", error)
+  //     }
+  // })
+
+      // stripe and payment things ---------------------------
+
+      // app.post("/create-payment-intent", async (req, res) => {
+      //   const { price } = req.body;
+      //   const amount = parseInt(price * 100);
+      //   if (!price || amount < 1) return;
+      //   const { client_secret } = await stripe.paymentIntents.create({
+      //     amount: amount,
+      //     currency: "usd",
+      //     payment_method_types: ["card"],
+      //   });
+      //   res.send({ clientSecret: client_secret });
+      // });
+  
+      // set item info in a booking collection
+      // app.post("/bookings",  async (req, res) => {
+      //   const booking = req.body;
+      //   const result = await bookingCollection.insertOne(booking);
+      //   res.send(result);
+      // });
+  
+      // app.get("/bookings", async (req, res) => {
+      //   const stEmail = req.query.stEmail;
+      //   console.log(stEmail);
+      //   const result = await bookingCollection
+      //     .find({ stEmail: stEmail })
+      //     .toArray();
+      //   res.send(result);
+      // });
+
+// //     //------------------------  review apis--------------------
+// //     app.get("/reviews", async (req, res) => {
+// //       try {
+// //         const result = await reviewCollection.find().toArray()
+// //         res.send(result)
+// //       } catch (error) {
+// //         console.log(error);
+// //       }
+// //     })
+
+// //       // stripe and payment things ---------------------------
+
+// //       app.post("/create-payment-intent", async (req, res) => {
+// //         const { price } = req.body;
+// //         const amount = parseInt(price * 100);
+// //         if (!price || amount < 1) return;
+// //         const { client_secret } = await stripe.paymentIntents.create({
+// //           amount: amount,
+// //           currency: "usd",
+// //           payment_method_types: ["card"],
+// //         });
+// //         res.send({ clientSecret: client_secret });
+// //       });
+  
+// //       // set item info in a booking collection
+// //       app.post("/bookings",  async (req, res) => {
+// //         const booking = req.body;
+// //         const result = await bookingCollection.insertOne(booking);
+// //         res.send(result);
+// //       });
+  
+// //       app.get("/bookings", async (req, res) => {
+// //         const stEmail = req.query.stEmail;
+// //         console.log(stEmail);
+// //         const result = await bookingCollection
+// //           .find({ stEmail: stEmail })
+// //           .toArray();
+// //         res.send(result);
+// //       });
+
+    // stripe and payment things ---------------------------
+
+    // app.post("/create-payment-intent", async (req, res) => {
+    //   const { price } = req.body;
+    //   const amount = parseInt(price * 100);
+    //   if (!price || amount < 1) return;
+    //   const { client_secret } = await stripe.paymentIntents.create({
+    //     amount: amount,
+    //     currency: "usd",
+    //     payment_method_types: ["card"],
+    //   });
+    //   res.send({ clientSecret: client_secret });
+    // });
+
+    // set item info in a booking collection
+    // app.post("/bookings", async (req, res) => {
+    //   const booking = req.body;
+    //   const result = await bookingCollection.insertOne(booking);
+    //   res.send(result);
+    // });
+
+    // app.get("/bookings", async (req, res) => {
+    //   const stEmail = req.query.stEmail;
+    //   console.log(stEmail);
+    //   const result = await bookingCollection
+    //     .find({ stEmail: stEmail })
+    //     .toArray();
+    //   res.send(result);
+    // });
+// //     // Send a ping to confirm a successful connection
+// //     await client.db("admin").command({ ping: 1 });
+// //     console.log("Pinged your deployment. You successfully connected to MongoDB!");
+// //   } finally {
+// //     // Ensures that the client will close when you finish/error
+// //     // await client.close();
+// //   }
+// // }
+// // run().catch(console.dir);
+// //     // Send a ping to confirm a successful connection
+// //     await client.db("admin").command({ ping: 1 });
+// //     console.log("Pinged your deployment. You successfully connected to MongoDB!");
+// //   } finally {
+// //     // Ensures that the client will close when you finish/error
+// //     // await client.close();
+// //   }
+// // }
+// // run().catch(console.dir);
+
+
+// // app.get('/', (req, res) => {
+// //   res.send('our server is running');
+// // })
+
+// // app.listen(port, () => {
+// //   console.log(`server is running on port:${port}`)
+// // })
+
+// // app.get('/', (req, res) => {
+// //   res.send('our server is running');
+// // })
 
 // //     // Send a ping to confirm a successful connection
 // //     await client.db("admin").command({ ping: 1 });
@@ -229,6 +440,10 @@
 // //   console.log(`server is running on port:${port}`)
 // // })
 
+// // app.listen(port, () => {
+// //   console.log(`server is running on port:${port}`)
+// // })
+
 // app.get("/notices", async (req, res) => {
 //   try {
 //     const result = await noticesCollection.find().toArray()
@@ -236,4 +451,6 @@
 //   } catch (error) {
 //     console.log(error);
 //   }
+// })
+// })
 // })
