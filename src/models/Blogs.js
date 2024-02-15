@@ -1,23 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-// const CommentSchema = new Schema({
-  // user_name: {
-//     type: String,
-//     required: true,
-//   },
-//   user_email: {
-//     type: String,
-//     required: true,
-//   },
-//   profile_image: {
-//     type: String,
-//     required: true,
-//   },
-//   comment_text: {
-//     type: String,
-//     required: true,
-//   },
-// });
 
 const BlogSchema = new Schema({
 
@@ -26,10 +8,14 @@ const BlogSchema = new Schema({
     type: String,
     required: true
   },
-  content: {
-    type: String,
+  contents: {
+    type: [{
+      id: Number,
+      value: String
+    }],
     required: true
   },
+  tags: [String],
   imageUrl: String,
   userPhoto: String,
   userName: String,
