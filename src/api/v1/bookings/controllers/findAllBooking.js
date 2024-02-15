@@ -1,13 +1,17 @@
 const Booking = require("../../../../models/Bookings");
 
-const findAllBooking = async (req, res, next) => {
+const findAllBooking = async (req, res) => {
   try {
-  
-    const result = await Booking.find();
+    const stEmail = req.query.stEmail;
+     
+
+    const result = await Booking.find({ stEmail: stEmail }).exec();
+
     res.send(result);
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).send("Internal Server Error");
   }
-};
+}
 
 module.exports = findAllBooking;

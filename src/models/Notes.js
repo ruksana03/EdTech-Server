@@ -18,8 +18,13 @@ const noteSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  email: {
+  priority: {
     type: String,
+    enum: ['low', 'moderate', 'high'],
+    required: true
+  },
+  deadline: {
+    type: Date,
     required: true
   },
   status: {
@@ -30,5 +35,4 @@ const noteSchema = new mongoose.Schema({
 });
 
 const Note = mongoose.model('Note', noteSchema);
-
 module.exports = Note;
