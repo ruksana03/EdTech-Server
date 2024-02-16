@@ -2,8 +2,8 @@ const Notice = require("../../../../models/Notices");
 
 const findNoticeTeacher = async (req, res) => {
   try {
-    const email = req.query.email;
-    const query = {hostEmail: email}
+    const sentNotices = req.query.sentNotices;
+    const query = {sentNotices: sentNotices}
     const result = await Notice.find(query) 
     res.send(result);
   } catch (error) {

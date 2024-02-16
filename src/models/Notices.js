@@ -18,9 +18,11 @@ const NoticeSchema = new Schema({
         type: String,
         required:true
     },
-    email: {
+    sentNotices: {
+        type: String, 
+    },
+    sentForCourse: {
         type: String,
-        required:true
     },
     hostEmail: {
         type: String,
