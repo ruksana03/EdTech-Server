@@ -36,24 +36,19 @@ const noteSchema = new mongoose.Schema({
   },
   priority: {
     type: String,
-    enum: ['low', 'medium', 'high'],
-    default: 'medium'
+    enum: ['low', 'moderate', 'high'],
+    required: true
   },
   deadline: {
     type: Date,
     required: true
   },
-  email: {
-    type: String,
-    required: true
-  },
   status: {
     type: String,
-    enum: ['todo', 'inProgress', 'completed'],
-    default: 'todo'
+    enum: ['pending', 'in-progress', 'completed'],
+     
   }
 });
 
 const Note = mongoose.model('Note', noteSchema);
-
 module.exports = Note;
