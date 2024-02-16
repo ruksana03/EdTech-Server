@@ -18,3 +18,9 @@ module.exports = postNote;
 //     const result = await taskcollection.insertOne(data);
 //     res.send(result);
 //   });
+
+// app.post('/task', async (req, res) => {
+//   const data = req.body;
+//   const result = await taskcollection.insertOne(data);
+//   res.send(result);
+// });
