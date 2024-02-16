@@ -13,8 +13,14 @@ const blogRoutes = require('./routes/v1/blogs/index')
 const bookingRoutes = require('./routes/v1/bookings/index')
 const paymentRoutes = require('./routes/v1/payments/index')
 const userRoutes = require('./routes/v1/users/index')
-const userAdminRoutes = require('./routes/v1/userAdmin/index')
+// const userAdminRoutes = require('./routes/v1/userAdmin/index')
 const noticeRoutes = require('./routes/v1/notices/index')
+const pdfRoutes = require('./routes/v1/pdf/index')
+const recordedRoutes = require('./routes/v1/recordedVideo/index')
+const notesRoutes = require('./routes/v1/note/index')
+const cartRoutes = require('./routes/v1/carts/index')
+const applicationRoutes = require('./routes/v1/application/index')
+const quizRoutes = require('./routes/v1/quiz/index')
 
 applyMiddleware(app)
 
@@ -25,8 +31,16 @@ app.use(blogRoutes)
 app.use(bookingRoutes)
 app.use(paymentRoutes)
 app.use(userRoutes)
-app.use(userAdminRoutes)
+app.use(notesRoutes)
+app.use(quizRoutes)
+
+// app.use(userAdminRoutes)
 app.use(noticeRoutes)
+app.use(pdfRoutes)
+app.use(recordedRoutes)
+app.use(notesRoutes)
+app.use(cartRoutes)
+app.use(applicationRoutes)
 app.use("/files", express.static("files"))
 
 //----------Multer-------------
@@ -41,35 +55,35 @@ const storage = multer.diskStorage({
     }
   })
   
-  const upload = multer({ storage: storage })
+//   const upload = multer({ storage: storage })
 
-  require("./models/PdfDetails");
-  const pdfSchema = mongoose.model("PdfDetails");
+//   require("./models/PdfDetails");
+//   const pdfSchema = mongoose.model("PdfDetails");
 
-app.post("/upload-files", upload.single("file"),async(req,res)=>{
-    const teacherName = req.body.teacherName;
-    const teacherEmail = req.body.teacherEmail;
-    const title = req.body.title;
-    const fileName = req.file.filename;
+// app.post("/upload-files", upload.single("file"),async(req,res)=>{
+//     const teacherName = req.body.teacherName;
+//     const teacherEmail = req.body.teacherEmail;
+//     const title = req.body.title;
+//     const fileName = req.file.filename;
 
-    try {
-        await pdfSchema.create({teacherName:teacherName, teacherEmail:teacherEmail, title:title, pdf:fileName})
-        res.send({status:"ok"});
-    } catch (error) {
-        res.json({status: error})
-    }
+//     try {
+//         await pdfSchema.create({teacherName:teacherName, teacherEmail:teacherEmail, title:title, pdf:fileName})
+//         res.send({status:"ok"});
+//     } catch (error) {
+//         res.json({status: error})
+//     }
    
-});
+// });
 
-app.get("/get-files", async(req, res)=>{
-    try {
-        pdfSchema.find({}).then(data=>{
-            res.send({status: "ok", data:data});
-        })
-    } catch (error) {
+// app.get("/get-files", async(req, res)=>{
+//     try {
+//         pdfSchema.find({}).then(data=>{
+//             res.send({status: "ok", data:data});
+//         })
+//     } catch (error) {
         
-    }
-})
+//     }
+// })
 
 // ----------------------------------------------------
 

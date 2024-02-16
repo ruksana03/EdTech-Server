@@ -49,7 +49,7 @@ const BookingSchema = new Schema({
     type: Date,
     required: true,
   },
-});
+}, { versionKey: false });
 
 const Booking = model("Booking", BookingSchema);
 module.exports = Booking;

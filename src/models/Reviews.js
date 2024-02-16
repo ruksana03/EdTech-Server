@@ -14,7 +14,7 @@ const ReviewSchema = new Schema({
         type: Number,
         required:true
     },
-})
+}, { versionKey: false })
 
 const Review =  model('Review', ReviewSchema)
 module.exports = Review;
