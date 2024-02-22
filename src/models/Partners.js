@@ -25,7 +25,7 @@ const partnerApplicationSchema = new mongoose.Schema({
     type: String,
     required: true
   }
-}, { timestamps: true });
+}, { timestamps: true, versionKey: false } );
 
 const Partner = mongoose.model('Partner', partnerApplicationSchema);
 
