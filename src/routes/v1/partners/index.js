@@ -1,8 +1,10 @@
 const express = require("express");
-const createPartner = require("../../../api/v1/partners/controllers/createPartner");
+const { createPartner, findAllPartner } = require("../../../api/v1/partners/controllers");
+ 
 const router = express.Router();
 
 
 router.post('/partner-applications', createPartner)
+router.get('/partner-applications', findAllPartner )
 
 module.exports = router;
