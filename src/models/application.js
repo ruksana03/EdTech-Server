@@ -1,6 +1,10 @@
 const { model, Schema } = require("mongoose");
 
 const applicationScema = new Schema({
+    id: {
+        type: String,
+        required: true,
+    },
     fullName: {
         type: String,
         required: true,
