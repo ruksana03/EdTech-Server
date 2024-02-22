@@ -7,7 +7,6 @@ const postNote = require('./postNote')
 
 
 
-
 module.exports = {
     changeNoteStatus,createNote,deleteNote,findAllNote,postNote,UpdatedNote,
 }
