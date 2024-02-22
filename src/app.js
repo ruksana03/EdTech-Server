@@ -22,6 +22,7 @@ const cartRoutes = require('./routes/v1/carts/index')
 const applicationRoutes = require('./routes/v1/application/index')
 const quizRoutes = require('./routes/v1/quiz/index')
 const newsLetterRoutes = require('./routes/v1/subscribe/index')
+const partnerRoutes = require('./routes/v1/partners/index')
 
 applyMiddleware(app)
 
@@ -43,6 +44,7 @@ app.use(notesRoutes)
 app.use(cartRoutes)
 app.use(applicationRoutes)
 app.use(newsLetterRoutes)
+app.use(partnerRoutes)
 app.use("/files", express.static("files"))
 
 //----------Multer-------------
