@@ -1,11 +1,11 @@
-const Note = require("../../../../models/Notes");
+// const Note = require("../../../../models/Notes");
 
- 
+const Notes = require("../../../../models/Notes");
 
 const postNote = async(req,res,next) => {
     try{
       const noteData = req.body;
-      const result = await new Note(noteData).save()
+      const result = await new Notes(noteData).save()
       res.send(result);
     }
     catch(error){
@@ -20,9 +20,3 @@ module.exports = postNote;
 //     const result = await taskcollection.insertOne(data);
 //     res.send(result);
 //   });
-
-// app.post('/task', async (req, res) => {
-//   const data = req.body;
-//   const result = await taskcollection.insertOne(data);
-//   res.send(result);
-// });

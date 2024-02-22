@@ -15,9 +15,11 @@ const paymentRoutes = require('./routes/v1/payments/index')
 const userRoutes = require('./routes/v1/users/index')
 // const userAdminRoutes = require('./routes/v1/userAdmin/index')
 const noticeRoutes = require('./routes/v1/notices/index')
+const noteRoutes = require('./routes/v1/note/index')
+
 const pdfRoutes = require('./routes/v1/pdf/index')
 const recordedRoutes = require('./routes/v1/recordedVideo/index')
-const notesRoutes = require('./routes/v1/note/index')
+// const notesRoutes = require('./routes/v1/note/index')
 const cartRoutes = require('./routes/v1/carts/index')
 const applicationRoutes = require('./routes/v1/application/index')
 const quizRoutes = require('./routes/v1/quiz/index')
@@ -34,15 +36,18 @@ app.use(blogRoutes)
 app.use(bookingRoutes)
 app.use(paymentRoutes)
 app.use(userRoutes)
-app.use(notesRoutes)
+
 app.use(quizRoutes)
 app.use(Rutine)
 
 // app.use(userAdminRoutes)
 app.use(noticeRoutes)
+app.use(noteRoutes)
+
+
 app.use(pdfRoutes)
 app.use(recordedRoutes)
-app.use(notesRoutes)
+
 app.use(cartRoutes)
 app.use(applicationRoutes)
 app.use(newsLetterRoutes)

@@ -3,10 +3,10 @@ const Note = require("../../../../models/Notes");
 const changeNoteStatus = async (req, res) => {
     try {
         const id = req.query.id;
-        const data = req.body;
+        const { status } = req.body; // Destructure status from req.body
 
         // Find the note by ID and update its status
-        const updatedNote = await Note.findByIdAndUpdate(id, { status: data.status }, { new: true });
+        const updatedNote = await Note.findByIdAndUpdate(id, { status }, { new: true });
 
         // Check if the note was found and updated successfully
         if (!updatedNote) {
@@ -22,17 +22,3 @@ const changeNoteStatus = async (req, res) => {
 };
 
 module.exports = changeNoteStatus;
-
-
-// app.patch('/status', async (req, res) => {
-//     const id = req.query.id;
-//     const data = req.body;
-//     const query = { _id: new ObjectId(id) };
-//     const updatedDoc = {
-//       $set: {
-//         status: data.status,
-//       },
-//     };
-//     const result = await taskcollection.updateOne(query, updatedDoc);
-//     res.send(result);
-//   });

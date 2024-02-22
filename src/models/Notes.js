@@ -1,54 +1,34 @@
-// const mongoose = require('mongoose');
 
-// const noteSchema = new mongoose.Schema({
-//   title: {
-//     type: String,
-//     required: true
-//   },
-//   deadline: {
-//     type: Date,
-//     required: true
-//   },
-//   email: {
-//     type: String,
-//     required: true
-//   },
-//   status: {
-//     type: String,
-//     enum: ['pending', 'in-progress', 'completed'],
-//     default: 'pending'
-//   }
-// });
-
-// module.exports = mongoose.model('Note', noteSchema);
+const { Schema, model } = require("mongoose");
 
 
-const mongoose = require('mongoose');
+const noteSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    priority: {
+        type: String,
+        required: true
+    },
+    deadline: {
+        type: Date,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        default: "todo",
+        required: true
+    }
+})
 
-const noteSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  priority: {
-    type: String,
-    enum: ['low', 'moderate', 'high'],
-    required: true
-  },
-  deadline: {
-    type: Date,
-    required: true
-  },
-  status: {
-    type: String,
-    enum: ['pending', 'in-progress', 'completed'],
-     
-  }
-});
-
-const Note = mongoose.model('Note', noteSchema);
-module.exports = Note;
+const Notes = model('Notes', noteSchema)
+module.exports = Notes;
