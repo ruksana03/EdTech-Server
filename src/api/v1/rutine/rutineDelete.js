@@ -7,10 +7,8 @@ const rutineDelete = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).send("Invalid ID");
     }
-
     const query = { _id: id };
     const result = await Rutine.deleteOne(query);
-
     res.send(result);
   } catch (error) {
     console.log(error);

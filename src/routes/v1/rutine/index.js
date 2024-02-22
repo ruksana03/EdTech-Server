@@ -4,7 +4,7 @@ var router = express.Router()
 
 router.post("/create-rutine", createRutine )
 router.get("/rutines", getRutine )
-router.delete("/rutine-delete", rutineDelete )
+router.delete("/rutine-delete/:id", rutineDelete )
 
 
 module.exports = router;
