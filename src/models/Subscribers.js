@@ -9,7 +9,7 @@ const subscriberSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
   },
-});
+},{versionKey:false});
 
 const Subscriber = mongoose.model('Subscriber', subscriberSchema);
 
