@@ -25,7 +25,7 @@ const applicationScema = new Schema({
         type: String,
         required: true,
     },
-    gradePoint: {
+     gradePoint: {
         type: Number,
         required: true,
     },
@@ -48,7 +48,7 @@ const applicationScema = new Schema({
     status: {
         type: String,
         required: true
-    },
+      },
     message: {
         type: String,
         required: true,
