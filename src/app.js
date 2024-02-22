@@ -36,7 +36,6 @@ app.use(blogRoutes)
 app.use(bookingRoutes)
 app.use(paymentRoutes)
 app.use(userRoutes)
-
 app.use(quizRoutes)
 app.use(Rutine)
 
