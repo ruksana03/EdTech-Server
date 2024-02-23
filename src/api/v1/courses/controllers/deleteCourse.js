@@ -2,7 +2,6 @@ const Course = require("../../../../models/Courses");
 
 const deleteCourse =  async (req, res) => {
     const courseId = req.params.id;
-
     try {
         const result = await Course.deleteOne({ _id: courseId });
         res.send(result);
