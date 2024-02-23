@@ -16,6 +16,10 @@ const rutineSchema = new Schema({
         type: String,
         required: true,
     },
+     liveLink: {
+        type: String,
+        required: false,
+    },
 }, { versionKey: false });
 
 const Rutine = mongoose.model('Rutines', rutineSchema);
