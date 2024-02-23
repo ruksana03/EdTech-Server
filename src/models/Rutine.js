@@ -16,6 +16,7 @@ const rutineSchema = new Schema({
         type: String,
         required: true,
     },
+//    link schema 
 }, { versionKey: false });
 
 const Rutine = mongoose.model('Rutines', rutineSchema);
