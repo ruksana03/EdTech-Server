@@ -25,6 +25,7 @@ const quizRoutes = require('./routes/v1/quiz/index')
 const Rutine = require('./routes/v1/rutine/index')
 const newsLetterRoutes = require('./routes/v1/subscribe/index')
 const partnerRoutes = require('./routes/v1/partners/index')
+const memberRoute  = require('./routes/v1/member/index')
 
 applyMiddleware(app)
 
@@ -38,19 +39,15 @@ app.use(paymentRoutes)
 app.use(userRoutes)
 app.use(quizRoutes)
 app.use(Rutine)
-
-// app.use(userAdminRoutes)
 app.use(noticeRoutes)
 app.use(noteRoutes)
-
-
 app.use(pdfRoutes)
 app.use(recordedRoutes)
-
 app.use(cartRoutes)
 app.use(applicationRoutes)
 app.use(newsLetterRoutes)
 app.use(partnerRoutes)
+app.use(memberRoute)
 app.use("/files", express.static("files"))
 
 
