@@ -19,6 +19,10 @@ const pdfSchema = new Schema({
         type: String,
         required: true
     },
+    courseName: {
+        type: String,
+        required: true
+    },
 },{ versionKey: false })
 
 const pdfResources = model('pdfResources', pdfSchema)
