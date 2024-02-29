@@ -39,7 +39,11 @@ const memberRoute  = require('./routes/v1/member/index')
 const partnerRoutes = require('./routes/v1/partners/index');
 const Message = require("./models/Message");
 const messageRoutes = require('./routes/v1/messages/index')
+<<<<<<< HEAD
 const coverRoutes = require('./routes/v1/Cover/index')
+=======
+const offerRoutes = require('./routes/v1/offer/index')
+>>>>>>> de5ca002cff21c38966c99035f3d890788f241e3
 
 applyMiddleware(app)
 
@@ -84,6 +88,7 @@ app.use(partnerRoutes)
 app.use(memberRoute)
 app.use("/files", express.static("files"))
 app.use(messageRoutes)
+app.use(offerRoutes)
 
 
 
