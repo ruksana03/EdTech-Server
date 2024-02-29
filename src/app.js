@@ -1,11 +1,23 @@
 const express = require("express");
+const http = require('http');
+const mongoose = require("mongoose");
+const socketio = require('socket.io');
+ 
 const applyMiddleware = require("./middlewares/applyMiddleware");
 const connectDB = require("./db/connectDB");
 require("dotenv").config();
-const mongoose = require("mongoose");
-const app = express();
-const port = process.env.PORT || 5000;
 
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server, {
+  cors: {
+    origin: "http://localhost:5173", // Allow requests from this origin
+    methods: ["GET", "POST"] // Allow only GET and POST requests
+  }
+});
+
+
+// import routes
 const authenticationRoutes = require('./routes/v1/authentication/index')
 const courseRoutes = require('./routes/v1/courses/index')
 const reviewRoutes = require('./routes/v1/reviews/index')
@@ -16,7 +28,6 @@ const userRoutes = require('./routes/v1/users/index')
 // const userAdminRoutes = require('./routes/v1/userAdmin/index')
 const noticeRoutes = require('./routes/v1/notices/index')
 const noteRoutes = require('./routes/v1/note/index')
-
 const pdfRoutes = require('./routes/v1/pdf/index')
 const recordedRoutes = require('./routes/v1/recordedVideo/index')
 const cartRoutes = require('./routes/v1/carts/index')
@@ -24,12 +35,34 @@ const applicationRoutes = require('./routes/v1/application/index')
 const quizRoutes = require('./routes/v1/quiz/index')
 const Rutine = require('./routes/v1/rutine/index')
 const newsLetterRoutes = require('./routes/v1/subscribe/index')
-const partnerRoutes = require('./routes/v1/partners/index')
 const memberRoute  = require('./routes/v1/member/index')
+const partnerRoutes = require('./routes/v1/partners/index');
+const Message = require("./models/Message");
+const messageRoutes = require('./routes/v1/messages/index')
+const coverRoutes = require('./routes/v1/Cover/index')
 
 applyMiddleware(app)
 
 
+// Connect to MongoDB
+connectDB();
+
+ 
+
+// Socket.io connection
+io.on('connection', (socket) => {
+//   console.log('New WebSocket connection');
+
+  // Listen for new messages
+  socket.on('sendMessage', async (message) => {
+    const newMessage = new Message({ text: message });
+    await newMessage.save();
+    io.emit('message', { text: message});  
+  });
+});
+
+
+// routes
 app.use(authenticationRoutes)
 app.use(courseRoutes)
 app.use(reviewRoutes)
@@ -44,15 +77,17 @@ app.use(noteRoutes)
 app.use(pdfRoutes)
 app.use(recordedRoutes)
 app.use(cartRoutes)
+app.use(coverRoutes)
 app.use(applicationRoutes)
 app.use(newsLetterRoutes)
 app.use(partnerRoutes)
 app.use(memberRoute)
 app.use("/files", express.static("files"))
+app.use(messageRoutes)
 
 
 
-app.get("/health", (req, res) => {
+app.get("/", (req, res) => {
   res.send("our server is running");
 });
 
@@ -68,11 +103,10 @@ app.use((err, req, res, next) => {
     })
 })
 
-const main = async () => {
-    await connectDB()
-    app.listen(port, () => {
-        console.log(`server is running on port:${port}`);
-      });
-}
+// Define the port
+const PORT = process.env.PORT || 5000;
 
-main()
+// Start the server
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
