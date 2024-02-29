@@ -35,10 +35,14 @@ const applicationRoutes = require('./routes/v1/application/index')
 const quizRoutes = require('./routes/v1/quiz/index')
 const Rutine = require('./routes/v1/rutine/index')
 const newsLetterRoutes = require('./routes/v1/subscribe/index')
+const memberRoute  = require('./routes/v1/member/index')
 const partnerRoutes = require('./routes/v1/partners/index');
 const Message = require("./models/Message");
 const messageRoutes = require('./routes/v1/messages/index')
+const coverRoutes = require('./routes/v1/Cover/index')
 const offerRoutes = require('./routes/v1/offer/index')
+
+
 
 applyMiddleware(app)
 
@@ -71,15 +75,16 @@ app.use(paymentRoutes)
 app.use(userRoutes)
 app.use(quizRoutes)
 app.use(Rutine)
-// app.use(userAdminRoutes)
 app.use(noticeRoutes)
 app.use(noteRoutes)
 app.use(pdfRoutes)
 app.use(recordedRoutes)
 app.use(cartRoutes)
+app.use(coverRoutes)
 app.use(applicationRoutes)
 app.use(newsLetterRoutes)
 app.use(partnerRoutes)
+app.use(memberRoute)
 app.use("/files", express.static("files"))
 app.use(messageRoutes)
 app.use(offerRoutes)

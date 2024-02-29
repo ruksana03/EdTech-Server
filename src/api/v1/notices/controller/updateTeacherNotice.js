@@ -1,7 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const Notice = require("../../../../models/NoticesT");
 
-const updateNotice =  async (req, res) => {
+const updateTeacherNotice =  async (req, res) => {
     try {
       const updatedData = req.body;
         const id = req.params.id;
@@ -20,4 +20,4 @@ const updateNotice =  async (req, res) => {
       console.log(error);
     }
 }
-module.exports = updateNotice;
+module.exports = updateTeacherNotice;
