@@ -42,7 +42,8 @@ const newsLetterRoutes = require('./routes/v1/subscribe/index')
 const memberRoute  = require('./routes/v1/member/index')
 const partnerRoutes = require('./routes/v1/partners/index');
 const Message = require("./models/Message");
-const messageRoutes = require('./routes/v1/messages/index')
+const messageRoutes = require('./routes/v1/messages/index');
+const FeedbackRoute = require('./routes/v1/feedback/index');
 const coverRoutes = require('./routes/v1/Cover/index')
 const offerRoutes = require('./routes/v1/offer/index')
 
@@ -91,6 +92,7 @@ app.use(partnerRoutes)
 app.use(memberRoute)
 app.use("/files", express.static("files"))
 app.use(messageRoutes)
+app.use(FeedbackRoute)
 app.use(offerRoutes)
 
 
