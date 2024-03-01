@@ -1,8 +1,7 @@
 const Notice = require("../../../../models/NoticesT");
 
-const findAllNotices =  async (req, res) => {
+const findAllTeacherNotice =  async (req, res) => {
     try {
-      // const filter = dateTime.sort({ createdAt: -1 })
       const result = await Notice.find() ;
       res.send(result);
     } catch (error) {
@@ -10,4 +9,4 @@ const findAllNotices =  async (req, res) => {
     }
 }
   
-module.exports = findAllNotices;
+module.exports = findAllTeacherNotice;

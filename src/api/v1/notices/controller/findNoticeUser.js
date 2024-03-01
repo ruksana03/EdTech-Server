@@ -1,4 +1,4 @@
-const Notice = require("../../../../models/Notices");
+const Notice = require("../../../../models/NoticesT");
 
 const findNoticeUser = async(req,res) => {
     try{

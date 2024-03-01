@@ -12,6 +12,10 @@ const rutineSchema = new Schema({
         type: String,
         required: true,
     },
+    liveLink: {
+        type: String,
+        required: false,
+    },
     teacherEmail: {
         type: String,
         required: true,

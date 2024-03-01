@@ -1,7 +1,7 @@
 const { default: mongoose } = require("mongoose");
-const Notice = require("../../../../models/Notices");
+const Notice = require("../../../../models/NoticesA");
 
-const deleteNotice = async (req, res) => {
+const deleteAdminNotice = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -18,4 +18,4 @@ const deleteNotice = async (req, res) => {
     console.log(error);
   }
 };
-module.exports = deleteNotice;
+module.exports = deleteAdminNotice;
