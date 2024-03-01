@@ -7,11 +7,9 @@ const findOneNote = require("../../../api/v1/notes/controllers/findOneNote");
 
 router.get("/addtask", findAllNote);
 router.post("/task", createNote);
-// router.get("/status", changeNoteStatus);
 router.delete("/delete/:id", deleteNote);
 router.put("/update/:id", UpdateNote);
 router.get("/note/:id", findOneNote);
-// router.put("/task", postNote);
 router.patch('/status', changeNoteStatus);
 
 module.exports = router;

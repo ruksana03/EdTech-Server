@@ -1,6 +1,6 @@
-const Notice = require("../../../../models/NoticesT");
+const Notice = require("../../../../models/NoticesA");
 
-const findOneNotice = async (req, res) => {
+const findOneAdminNotice = async (req, res) => {
   try {
     const id = req.params.id;
     const result = await Notice.findById(id);
@@ -10,4 +10,4 @@ const findOneNotice = async (req, res) => {
   }
 };
 
-module.exports = findOneNotice;
+module.exports = findOneAdminNotice;

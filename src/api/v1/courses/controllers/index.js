@@ -7,6 +7,11 @@ const findApprovedCourses = require('./findApprovedCourses')
 const deleteCourse = require('./deleteCourse')
 
 module.exports = {
-    findAllCourse,findPopularCourses,findOneCourse, createCourse,
-    updateCourseStatus, findApprovedCourses, deleteCourse,
+    findAllCourse,
+    findPopularCourses,
+    findOneCourse,
+    createCourse,
+    updateCourseStatus,
+    findApprovedCourses,
+    deleteCourse,
 }
