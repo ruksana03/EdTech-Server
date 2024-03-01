@@ -1,6 +1,6 @@
-const Notice = require("../../../../models/Notices");
+const Notice = require("../../../../models/NoticesA");
 
-const createNotice = async(req,res,next) => {
+const createNoticeByAdmin = async(req,res,next) => {
     try{
       const noticeData = req.body;
       const result = await new Notice(noticeData).save();
@@ -11,4 +11,4 @@ const createNotice = async(req,res,next) => {
     }
 }
   
-module.exports = createNotice;
+module.exports = createNoticeByAdmin;

@@ -13,7 +13,7 @@ const feedbackSchema = new Schema({
         type: String,
         required: true
     },
-    feetbackMessage: {
+    feedbackMessage: {
         type: String,
         required: true
     },

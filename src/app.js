@@ -2,17 +2,21 @@ const express = require("express");
 const http = require('http');
 const mongoose = require("mongoose");
 const socketio = require('socket.io');
- 
+const config = require('./config/default')
 const applyMiddleware = require("./middlewares/applyMiddleware");
 const connectDB = require("./db/connectDB");
 require("dotenv").config();
 
 const app = express();
 const server = http.createServer(app);
+// Import configuration
+const origin = process.env.NODE_ENV === 'development' ? config.LOCAL_CLIENT : config.CLIENT;
+
+// Socket.io connection
 const io = socketio(server, {
   cors: {
-    origin: "http://localhost:5173", // Allow requests from this origin
-    methods: ["GET", "POST"] // Allow only GET and POST requests
+    origin: origin,
+    methods: ["GET", "POST"]
   }
 });
 
@@ -35,10 +39,14 @@ const applicationRoutes = require('./routes/v1/application/index')
 const quizRoutes = require('./routes/v1/quiz/index')
 const Rutine = require('./routes/v1/rutine/index')
 const newsLetterRoutes = require('./routes/v1/subscribe/index')
+const memberRoute  = require('./routes/v1/member/index')
 const partnerRoutes = require('./routes/v1/partners/index');
 const Message = require("./models/Message");
 const messageRoutes = require('./routes/v1/messages/index');
 const FeedbackRoute = require('./routes/v1/feedback/index');
+const coverRoutes = require('./routes/v1/Cover/index')
+const offerRoutes = require('./routes/v1/offer/index')
+
 
 
 applyMiddleware(app)
@@ -72,18 +80,20 @@ app.use(paymentRoutes)
 app.use(userRoutes)
 app.use(quizRoutes)
 app.use(Rutine)
-// app.use(userAdminRoutes)
 app.use(noticeRoutes)
 app.use(noteRoutes)
 app.use(pdfRoutes)
 app.use(recordedRoutes)
 app.use(cartRoutes)
+app.use(coverRoutes)
 app.use(applicationRoutes)
 app.use(newsLetterRoutes)
 app.use(partnerRoutes)
+app.use(memberRoute)
 app.use("/files", express.static("files"))
 app.use(messageRoutes)
 app.use(FeedbackRoute)
+app.use(offerRoutes)
 
 
 
