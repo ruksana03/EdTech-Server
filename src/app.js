@@ -2,17 +2,21 @@ const express = require("express");
 const http = require('http');
 const mongoose = require("mongoose");
 const socketio = require('socket.io');
- 
+const config = require('./config/default')
 const applyMiddleware = require("./middlewares/applyMiddleware");
 const connectDB = require("./db/connectDB");
 require("dotenv").config();
 
 const app = express();
 const server = http.createServer(app);
+// Import configuration
+const origin = process.env.NODE_ENV === 'development' ? config.LOCAL_CLIENT : config.CLIENT;
+
+// Socket.io connection
 const io = socketio(server, {
   cors: {
-    origin: "http://localhost:5173", // Allow requests from this origin
-    methods: ["GET", "POST"] // Allow only GET and POST requests
+    origin: origin,
+    methods: ["GET", "POST"]
   }
 });
 
