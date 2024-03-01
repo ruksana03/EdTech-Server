@@ -37,7 +37,9 @@ const Rutine = require('./routes/v1/rutine/index')
 const newsLetterRoutes = require('./routes/v1/subscribe/index')
 const partnerRoutes = require('./routes/v1/partners/index');
 const Message = require("./models/Message");
-const messageRoutes = require('./routes/v1/messages/index')
+const messageRoutes = require('./routes/v1/messages/index');
+const FeedbackRoute = require('./routes/v1/feedback/index');
+
 
 applyMiddleware(app)
 
@@ -81,6 +83,7 @@ app.use(newsLetterRoutes)
 app.use(partnerRoutes)
 app.use("/files", express.static("files"))
 app.use(messageRoutes)
+app.use(FeedbackRoute)
 
 
 
