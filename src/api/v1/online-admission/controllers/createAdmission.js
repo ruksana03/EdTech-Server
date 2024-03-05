@@ -4,6 +4,7 @@ const onlineAdmission = require("../../../../models/onlineAdmission");
 const createAdmission = async (req, res, next) => {
     try {
         const onlineAdmissionData = req.body;
+        console.log(onlineAdmission);
         const newAdmission = new onlineAdmission({
             ...onlineAdmissionData,
             status: "pending",

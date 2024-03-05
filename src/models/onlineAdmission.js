@@ -14,7 +14,7 @@ const onlineAdmissionSchema = new Schema({
         required: true,
     },
     userRole: {
-        type: Number,
+        type: String,
         required: true,
     },
     streetAddress: {
