@@ -1,6 +1,6 @@
 const Member = require("../../../../models/member");
 
-const postBlog = async (req, res) => {
+const createNewMember = async (req, res) => {
     try {
         const member = req.body;
         const newMember = new Member(member); 
@@ -12,4 +12,4 @@ const postBlog = async (req, res) => {
     }
 };
 
-module.exports = postBlog;
+module.exports = createNewMember;
