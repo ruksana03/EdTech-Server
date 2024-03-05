@@ -1,12 +1,12 @@
 var express = require("express");
-// const { createApplication, findAllApplication, findOneApplication, updatedStatusApplication, rejectedApplication } = require("../../../api/v1/application");
+const { createAdmission, findAllOnlineAdmission, findOneAdmission, updatedStatusAdmission, rejectedOnlineAdmission } = require("../../../api/v1/online-admission");
 var router = express.Router()
 
-router.post('/applications', createApplication );
-router.get('/applications', findAllApplication );
-router.get('/application/:id', findOneApplication );
-router.put('/application/approve/:id', updatedStatusApplication );
-router.delete('/application/reject/:id', rejectedApplication );
+router.post('/online-admission', createAdmission );
+router.get('/all-admissions', findAllOnlineAdmission );
+router.get('/online-admission/:id', findOneAdmission );
+router.put('/online-admission/approve/:id', updatedStatusAdmission );
+router.delete('/online-admission/reject/:id', rejectedOnlineAdmission );
 
 
 
