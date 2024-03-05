@@ -13,7 +13,6 @@ const updatedStatusAdmission = async (req, res, next) => {
         if (!updatedApplication) {
             return res.status(404).send("Course not found or already selected.");
         }
-
         res.send(updatedApplication);
     } catch (error) {
         console.error("Error updating course status:", error,next);
