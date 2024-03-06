@@ -44,8 +44,9 @@ const partnerRoutes = require('./routes/v1/partners/index');
 const Message = require("./models/Message");
 const messageRoutes = require('./routes/v1/messages/index');
 const FeedbackRoute = require('./routes/v1/feedback/index');
-const coverRoutes = require('./routes/v1/Cover/index')
-const offerRoutes = require('./routes/v1/offer/index')
+const coverRoutes = require('./routes/v1/Cover/index');
+const offerRoutes = require('./routes/v1/offer/index');
+const onlineAdmission = require('./routes/v1/online-admission/index');
 
 
 
@@ -94,6 +95,7 @@ app.use("/files", express.static("files"))
 app.use(messageRoutes)
 app.use(FeedbackRoute)
 app.use(offerRoutes)
+app.use(onlineAdmission)
 
 
 
