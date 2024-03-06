@@ -7,7 +7,7 @@ const updatedStatusAdmission = async (req, res, next) => {
         const updatedApplication = await Application.findOneAndUpdate(
             { _id: id, status: { $ne: "selected" } },
             { $set: { status: "selected" } },
-            { new: true } // This option returns the modified document
+            { new: true } 
         );
 
         if (!updatedApplication) {
