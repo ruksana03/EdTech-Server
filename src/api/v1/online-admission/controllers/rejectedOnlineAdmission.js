@@ -1,11 +1,11 @@
-const Application = require("../../../../models/application");
+const onlineAdmission = require("../../../../models/onlineAdmission");
 
 
-const rejectedApplication = async (req, res) => {
+const rejectedOnlineAdmission = async (req, res) => {
     try {
         const id = req.params.id;
         const query = { _id: id };
-        const result = await Application.deleteOne(query);
+        const result = await onlineAdmission.deleteOne(query);
         res.send(result);
     } catch (error) {
         console.error('Error deleting course:', error);
@@ -13,4 +13,4 @@ const rejectedApplication = async (req, res) => {
     }
 }
 
-module.exports = rejectedApplication;
+module.exports = rejectedOnlineAdmission;
